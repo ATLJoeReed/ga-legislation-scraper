@@ -1,2 +1,2 @@
 # ga-legislation-scraper
-Process to scrape legislation and laws information.
+Process to scrape legislation and law information.
