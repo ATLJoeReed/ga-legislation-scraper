@@ -1,0 +1,18 @@
+- documentType:
+    - 1 - Bill
+    - 2 - Resolution
+
+- chamberType:
+    - 1 - House
+    - 2 - Senate
+
+- status
+    - Prefiled
+    - First Read in House
+    - First Read in Senate
+    - Signed By Governor
+    - House Action
+    - Senate Action
+    - House or Senate Action
+
+Georgia Code Titles
