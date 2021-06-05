@@ -10,7 +10,7 @@ def show_api_requests(requests):
 
 def show_api_reponses(response):
     if 'legis.ga.gov/api' in response.url:
-        print(">>", response.status, response.url)
+        print("<<", response.status, response.url)
 
 
 def watch_all_network_events(playwright, url, only_api):
