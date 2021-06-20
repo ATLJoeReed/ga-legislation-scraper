@@ -60,12 +60,22 @@ async def get_legislative_details(browser, logger):
             )
         legislative_detail_results = await asyncio.gather(*tasks)
         final_results.append(legislative_detail_results)
+    # helpers.writeout_results(final_results, 'results.json', '.', logger)
+    # flat_results = list(itertools.chain(*final_results))
     logger.info(f'final_results length: {len(final_results)}')
-    logger.info(f'final_results length[0]: {len(final_results[0])}')
-    logger.info(f'final_results length[1]: {len(final_results[1])}')
-
-
-logger = helpers.setup_logger_stdout('legislative_scraper')
+    for x in final_results[0]:
+        logger.info(x.keys())
+        for k in x.keys():
+            if '/api/legislation/html' in k:
+                logger.info(len(x.get(k)[0]))
+                logger.info(x.get(k)[0][0:50])
+    for x in final_results[1]:
+        logger.info(x.keys())
+        for k in x.keys():
+            if '/api/legislation/html' in k:
+                logger.info(len(x.get(k)[0]))
+                logger.info(x.get(k)[0][0:50])
+    return final_results
 
 
 async def main(logger):
@@ -74,4 +84,5 @@ async def main(logger):
         await get_legislative_details(browser, logger)
 
 
+logger = helpers.setup_logger_stdout('legislative_scraper')
 asyncio.run(main(logger))
