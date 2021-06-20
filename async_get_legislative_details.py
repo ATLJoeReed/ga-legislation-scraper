@@ -32,9 +32,9 @@ async def intercept_api_calls(context, url):
     intercepted_json = {}
     intercept_routes = ['/api/legislation/detail', '/api/legislation/html']
 
-    def extract_json(response):
+    async def extract_json(response):
         if any(route in response.url for route in intercept_routes):
-            intercepted_json[response.url] = response.json()
+            intercepted_json[response.url] = await response.json()
 
     page = await context.new_page()
     page.on("response", extract_json)
@@ -60,8 +60,9 @@ async def get_legislative_details(browser, logger):
             )
         legislative_detail_results = await asyncio.gather(*tasks)
         final_results.append(legislative_detail_results)
-    logger.info(f'final_results length: {len(final_results[0])}')
-    logger.info(final_results)
+    logger.info(f'final_results length: {len(final_results)}')
+    logger.info(f'final_results length[0]: {len(final_results[0])}')
+    logger.info(f'final_results length[1]: {len(final_results[1])}')
 
 
 logger = helpers.setup_logger_stdout('legislative_scraper')
