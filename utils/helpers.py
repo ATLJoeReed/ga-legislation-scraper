@@ -62,17 +62,17 @@ def get_url_intercept_routes(legislative_route, logger):
     return (url, intercept_routes)
 
 
-def intercept_api_calls(context, url, intercept_routes):
+async def intercept_api_calls(context, url, intercept_routes):
     intercepted_json = {}
 
-    def extract_json(response):
+    async def extract_json(response):
         if any(route in response.url for route in intercept_routes):
-            intercepted_json[response.url] = response.json()
+            intercepted_json[response.url] = await response.json()
 
-    page = context.new_page()
+    page = await context.new_page()
     page.on("response", extract_json)
-    page.goto(url, wait_until="networkidle")
-    context.close()
+    await page.goto(url, wait_until="networkidle")
+    await page.close()
     return intercepted_json
 
 
