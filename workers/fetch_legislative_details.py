@@ -34,7 +34,7 @@ def process(urls):
     logger.info('<<Starting to fetch legislative details>>')
 
     results = asyncio.run(main(urls, logger))
-    logger.info(f'final_results length: {len(results)}')
+    logger.info(f'fetched_results length: {len(results)}')
 
     logger.info('<<Ending fetching legislative details>>')
     return results
