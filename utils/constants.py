@@ -28,7 +28,7 @@ GA_LEGISLATION_ROUTES = {
     'legislation_details': {
         'url': 'https://www.legis.ga.gov/legislation/{legislation_id}',
         'intercept_routes': [
-            '/api/legislation/detail/{legislation_id}',
+            '/api/legislation/detail',
             '/api/legislation/html',
         ],
     }
