@@ -31,22 +31,6 @@ def get_committees(context, params, logger):
     return extract_first_item(results, 'committees', logger)
 
 
-def get_current_session(context, logger):
-    url, intercept_routes = get_url_intercept_routes('sessions', logger)
-    logger.info('Intercepting session route')
-    results = intercept_api_calls(context, url, intercept_routes)
-    return extract_current_sessions(results, logger)
-
-
-def get_legislation_details(context, params, logger):
-    url, intercept_routes = get_url_intercept_routes('legislation_details', logger) # noqa
-    adjusted_url = update_item(url, params, logger)
-    adjusted_routes = update_list_item(intercept_routes, params, logger)
-    logger.info('Intercepting legislation details route')
-    results = intercept_api_calls(context, adjusted_url, adjusted_routes)
-    return results
-
-
 def get_legistative_members(context, params, type, logger):
     url, intercept_routes = get_url_intercept_routes(type, logger)
     adjusted_routes = update_list_item(intercept_routes, params, logger)
