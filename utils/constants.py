@@ -1,6 +1,8 @@
 #!/usr/bin/python3.9
 # -*- coding: utf-8 -*-
 
+CURRENT_SESSION = 1029
+
 GA_LEGISLATION_ROUTES = {
     'sessions': {
         'url': 'https://www.legis.ga.gov/committees/house',
