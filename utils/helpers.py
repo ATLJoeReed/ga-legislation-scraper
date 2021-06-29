@@ -23,14 +23,6 @@ def extract_first_item(results, type, logger):
     return results_values[0]
 
 
-def get_committees(context, params, logger):
-    url, intercept_routes = get_url_intercept_routes('committees', logger)
-    adjusted_routes = update_list_item(intercept_routes, params, logger)
-    logger.info('Intercepting committee route')
-    results = intercept_api_calls(context, url, adjusted_routes)
-    return extract_first_item(results, 'committees', logger)
-
-
 def get_legistative_members(context, params, type, logger):
     url, intercept_routes = get_url_intercept_routes(type, logger)
     adjusted_routes = update_list_item(intercept_routes, params, logger)
