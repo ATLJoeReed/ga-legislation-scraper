@@ -8,8 +8,7 @@ from playwright.async_api import async_playwright
 from utils import helpers
 
 
-async def get_legislative_details(browser, urls, logger):
-    _, intercept_routes = helpers.get_url_intercept_routes('legislative_details', logger) # noqa
+async def get_legislative_details(browser, urls, intercept_routes, logger):
     context = await browser.new_context()
     tasks = []
     for u in urls:
@@ -23,10 +22,10 @@ async def get_legislative_details(browser, urls, logger):
     return fetched_results
 
 
-async def main(urls, logger):
+async def main(urls, intercept_routes, logger):
     async with async_playwright() as playright:
         browser = await playright.chromium.launch()
-        results = await get_legislative_details(browser, urls, logger)
+        results = await get_legislative_details(browser, urls, intercept_routes, logger) # noqa
     return results
 
 
@@ -36,14 +35,14 @@ def process(legislative_ids):
 
     logger.info('Building URLs')
     urls = []
-    base_url, _ = helpers.get_url_intercept_routes('legislative_details', logger) # noqa
+    base_url, intercept_routes = helpers.get_url_intercept_routes('legislative_details', logger) # noqa
 
     for id in legislative_ids:
         url = base_url.format(**{'legislation_id': id})
         urls.append(url)
     logger.info(f'Built {len(urls)} URLs for processing')
 
-    results = asyncio.run(main(urls, logger))
+    results = asyncio.run(main(urls, intercept_routes, logger))
     logger.info(f'fetched_results length: {len(results)}')
 
     logger.info('<<Ending fetching legislative details>>')
