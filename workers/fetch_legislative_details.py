@@ -37,6 +37,7 @@ def process(legislative_ids):
     urls = []
     base_url, intercept_routes = helpers.get_url_intercept_routes('legislative_details', logger) # noqa
 
+    # Build URLs for each legislative id passed in...
     for id in legislative_ids:
         url = base_url.format(**{'legislation_id': id})
         urls.append(url)
