@@ -1,5 +1,6 @@
 #!/usr/bin/python3.9
 # -*- coding: utf-8 -*-
+import json
 import logging
 import sys
 
@@ -23,30 +24,6 @@ def extract_first_item(results, type, logger):
     return results_values[0]
 
 
-def get_committees(context, params, logger):
-    url, intercept_routes = get_url_intercept_routes('committees', logger)
-    adjusted_routes = update_list_item(intercept_routes, params, logger)
-    logger.info('Intercepting committee route')
-    results = intercept_api_calls(context, url, adjusted_routes)
-    return extract_first_item(results, 'committees', logger)
-
-
-def get_current_session(context, logger):
-    url, intercept_routes = get_url_intercept_routes('sessions', logger)
-    logger.info('Intercepting session route')
-    results = intercept_api_calls(context, url, intercept_routes)
-    return extract_current_sessions(results, logger)
-
-
-def get_legislation_details(context, params, logger):
-    url, intercept_routes = get_url_intercept_routes('legislation_details', logger) # noqa
-    adjusted_url = update_item(url, params, logger)
-    adjusted_routes = update_list_item(intercept_routes, params, logger)
-    logger.info('Intercepting legislation details route')
-    results = intercept_api_calls(context, adjusted_url, adjusted_routes)
-    return results
-
-
 def get_legistative_members(context, params, type, logger):
     url, intercept_routes = get_url_intercept_routes(type, logger)
     adjusted_routes = update_list_item(intercept_routes, params, logger)
@@ -62,17 +39,17 @@ def get_url_intercept_routes(legislative_route, logger):
     return (url, intercept_routes)
 
 
-def intercept_api_calls(context, url, intercept_routes):
+async def intercept_api_calls(context, url, intercept_routes):
     intercepted_json = {}
 
-    def extract_json(response):
+    async def extract_json(response):
         if any(route in response.url for route in intercept_routes):
-            intercepted_json[response.url] = response.json()
+            intercepted_json[response.url] = await response.json()
 
-    page = context.new_page()
+    page = await context.new_page()
     page.on("response", extract_json)
-    page.goto(url, wait_until="networkidle")
-    context.close()
+    await page.goto(url, wait_until="networkidle")
+    await page.close()
     return intercepted_json
 
 
@@ -99,3 +76,8 @@ def update_list_item(list_object, params, logger):
     for item in list_object:
         updated_items.append(update_item(item, params, logger))
     return updated_items
+
+
+def write_json_file(file_name, data):
+    with open(file_name, 'w') as f:
+        json.dump(data, f)

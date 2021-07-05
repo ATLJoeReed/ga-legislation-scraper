@@ -1,6 +1,8 @@
 #!/usr/bin/python3.9
 # -*- coding: utf-8 -*-
 
+CURRENT_SESSION = 1029
+
 GA_LEGISLATION_ROUTES = {
     'sessions': {
         'url': 'https://www.legis.ga.gov/committees/house',
@@ -25,10 +27,10 @@ GA_LEGISLATION_ROUTES = {
         ],
         'intercept_routes': ['/api/Legislation/Search/20/{page}'],
     },
-    'legislation_details': {
+    'legislative_details': {
         'url': 'https://www.legis.ga.gov/legislation/{legislation_id}',
         'intercept_routes': [
-            '/api/legislation/detail/{legislation_id}',
+            '/api/legislation/detail',
             '/api/legislation/html',
         ],
     }
