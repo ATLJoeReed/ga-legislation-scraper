@@ -1,5 +1,6 @@
 #!/usr/bin/python3.9
 # -*- coding: utf-8 -*-
+import json
 import logging
 import sys
 
@@ -75,3 +76,8 @@ def update_list_item(list_object, params, logger):
     for item in list_object:
         updated_items.append(update_item(item, params, logger))
     return updated_items
+
+
+def write_json_file(file_name, data):
+    with open(file_name, 'w') as f:
+        json.dump(data, f)
