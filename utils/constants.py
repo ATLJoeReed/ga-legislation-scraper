@@ -22,7 +22,7 @@ GA_LEGISLATION_ROUTES = {
     },
     'legislative_summaries': {
         'url': 'https://www.legis.ga.gov/legislation/all',
-        'intercept_routes': ['/api/Legislation/Search/20/0'],
+        'intercept_routes': ['/api/Legislation/Search'],
     },
     'legislative_details': {
         'url': 'https://www.legis.ga.gov/legislation/{legislation_id}',
