@@ -46,5 +46,24 @@ def process(legislative_ids):
     results = asyncio.run(main(urls, intercept_routes, logger))
     logger.info(f'fetched_results length: {len(results)}')
 
+    logger.info('Parsing text from HTML and repackaging results')
+    final_results = []
+    for r in results:
+        legislative_info = {}
+        results_values = list(r.values())
+        # bill details are stored in first element
+        legislative_info['details'] = results_values[0]
+        # html is stored in second element
+        document_html = results_values[1]
+        # We need to get the array of html pages into a single html stream...
+        html = ''
+        for d in document_html:
+            html += d
+        document_text = helpers.extract_text_from_html(html)
+        legislative_info['document_number_pages'] = len(document_html)
+        legislative_info['document_text'] = document_text
+        legislative_info['document_html'] = document_html
+        final_results.append(legislative_info)
+
     logger.info('<<Ending fetching legislative details>>')
-    return results
+    return final_results
