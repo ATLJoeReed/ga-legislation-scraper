@@ -4,3 +4,4 @@ jupyterlab==3.0.16
 pandas==1.2.4
 playwright==1.11.2
 requests==2.25.1
+spacy==3.1.0
