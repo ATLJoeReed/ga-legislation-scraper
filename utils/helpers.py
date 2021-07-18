@@ -2,8 +2,11 @@
 # -*- coding: utf-8 -*-
 import json
 import logging
+import re
 import sys
+from unicodedata import normalize
 
+from bs4 import BeautifulSoup
 from utils import constants
 
 
@@ -22,6 +25,20 @@ def extract_first_item(results, type, logger):
     if len(results_values) != 1:
         logger.warning(f'{type} JSON objects needs inspecting')
     return results_values[0]
+
+
+def extract_text_from_html(html):
+    soup = BeautifulSoup(html, 'html.parser')
+    text = soup.get_text()
+    # cleanup some of the unicode characters...
+    step_1 = normalize('NFKD', text)
+    # removes the line numbers...
+    step_2 = re.sub('\\n([1-9][0-9]*)', ' ', step_1)
+    # removes multiple spaces...
+    step_3 = re.sub(' +', ' ', step_2)
+    # final bit of code cleanup...
+    step_4 = "".join(i for i in step_3 if 31 < ord(i) < 127)
+    return step_4.strip()
 
 
 def get_legistative_members(context, params, type, logger):
