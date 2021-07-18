@@ -27,5 +27,21 @@ GA_LEGISLATION_ROUTES = {
     'legislative_details': {
         'url': 'https://www.legis.ga.gov/legislation/{legislation_id}',
         'intercept_routes': ['/api/legislation/detail', '/api/legislation/html'], # noqa
-    }
+    },
+    'house_votes': {
+        'url': 'https://www.legis.ga.gov/votes/house',
+        'intercept_routes': ['/api/Vote/list/1/{current_session}'],
+    },
+    'senate_votes': {
+        'url': 'https://www.legis.ga.gov/votes/senate',
+        'intercept_routes': ['/api/Vote/list/2/{current_session}'],
+    },
+    'house_member_votes': {
+        'url': 'https://www.legis.ga.gov/votes/house',
+        'intercept_routes': ['api/Vote/detail/{vote_id}']
+    },
+    'senate_member_votes': {
+        'url': 'https://www.legis.ga.gov/votes/senate',
+        'intercept_routes': ['api/Vote/detail/{vote_id}']
+    },
 }

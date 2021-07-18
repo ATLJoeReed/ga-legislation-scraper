@@ -16,3 +16,12 @@
     - House or Senate Action
 
 Georgia Code Titles
+
+
+
+- memberVoted
+  - 0 = Yea
+  - 1 = Nay
+  - 2 = excused
+  - 3 = not voted
+  
