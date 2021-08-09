@@ -63,6 +63,15 @@ def process(legislative_ids):
         legislative_info['document_number_pages'] = len(document_html)
         legislative_info['document_text'] = document_text
         legislative_info['document_html'] = document_html
+        # Add in process to extract votes TODO:
+        #  check legislative_info['details'] for presents of "votes"
+        #  if found loop throught them
+        #    determine vote type (house|senate)
+        #    go to vote summary
+        #    click on vote number
+        #    intercept route and snag json
+        #  package all votes
+        #  write into legislative_info
         final_results.append(legislative_info)
 
     logger.info('<<Ending fetching legislative details>>')
