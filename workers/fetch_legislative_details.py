@@ -6,6 +6,7 @@ import os
 from playwright.async_api import async_playwright
 
 from utils import helpers
+from workers import fetch_member_votes
 
 
 async def get_legislative_details(browser, urls, intercept_routes, logger):
