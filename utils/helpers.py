@@ -65,8 +65,11 @@ async def intercept_api_call_with_click(context, url, number, intercept_routes):
 
     page = await context.new_page()
     await page.goto(url, wait_until="networkidle")
+    click_command = f':is(button:has-text(" {number} "))'
+    print(click_command)
+    # await page.click(click_command)
+    await page.click("text=162", wait_for="networkidle")
     page.on("response", extract_json)
-    await page.click(f':is(button:has-text("{number}"))')
     await page.close()
     return intercepted_json
 
