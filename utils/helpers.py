@@ -56,7 +56,7 @@ def get_url_intercept_routes(legislative_route, logger):
     return (url, intercept_routes)
 
 
-async def intercept_api_call_with_click(context, url, number, intercept_routes):
+async def intercept_api_call_with_click(context, url, number, intercept_routes): # noqa
     intercepted_json = {}
 
     async def extract_json(response):
@@ -65,11 +65,11 @@ async def intercept_api_call_with_click(context, url, number, intercept_routes):
 
     page = await context.new_page()
     await page.goto(url, wait_until="networkidle")
-    click_command = f':is(button:has-text(" {number} "))'
-    print(click_command)
-    # await page.click(click_command)
-    await page.click("text=162", wait_for="networkidle")
+
     page.on("response", extract_json)
+    async with page.expect_response(intercept_routes[0]) as popup: # noqa
+        await page.click(f':is(button:has-text(" {number} "))')
+
     await page.close()
     return intercepted_json
 

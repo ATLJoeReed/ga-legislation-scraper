@@ -5,7 +5,7 @@ import os
 
 from playwright.async_api import async_playwright
 
-from utils import constants, helpers
+from utils import helpers
 
 
 async def get_member_voters(browser, vote_params, logger):
@@ -16,7 +16,7 @@ async def get_member_voters(browser, vote_params, logger):
         logger.info(f'Processing vote number: {number}')
         tasks.append(
             asyncio.ensure_future(
-                helpers.intercept_api_call_with_click(context, url, number, intercept_routes)
+                helpers.intercept_api_call_with_click(context, url, number, intercept_routes) # noqa
             )
         )
     fetched_results = await asyncio.gather(*tasks)
