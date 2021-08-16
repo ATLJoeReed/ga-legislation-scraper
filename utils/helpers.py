@@ -67,9 +67,9 @@ async def intercept_api_call_with_click(context, url, number, intercept_routes):
     await page.goto(url, wait_until="networkidle")
 
     page.on("response", extract_json)
-    async with page.expect_response(intercept_routes[0]) as popup: # noqa
+    response_url = f'https://www.legis.ga.gov/{intercept_routes[0]}'
+    async with page.expect_response(response_url):
         await page.click(f':is(button:has-text(" {number} "))')
-
     await page.close()
     return intercepted_json
 
