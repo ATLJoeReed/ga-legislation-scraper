@@ -32,6 +32,7 @@ async def main(params, logger):
     async with async_playwright() as playright:
         browser = await playright.chromium.launch()
         results = await get_member_voters(browser, params, logger)
+        await browser.close()
     return results
 
 
