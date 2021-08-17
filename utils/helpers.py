@@ -3,6 +3,7 @@
 import asyncio
 import json
 import logging
+import os
 import re
 import sys
 from unicodedata import normalize
@@ -62,7 +63,8 @@ async def intercept_api_call_with_click(context, url, number, intercept_routes):
 
     async def extract_json(response):
         if any(route in response.url for route in intercept_routes):
-            intercepted_json[response.url] = await response.json()
+            vote_id = os.path.basename(response.url)
+            intercepted_json[vote_id] = await response.json()
 
     page = await context.new_page()
     await page.goto(url, wait_until="networkidle")
