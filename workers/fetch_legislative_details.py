@@ -60,10 +60,11 @@ def process(legislative_ids):
             logger.info(f'Found {len(votes)} votes associated with this legislation') # noqa
             # Loop thru each vote and fetch the member votes for each
             for v in votes:
-                # Pulling out (3) data points needed to extract member votes
+                # Pulling out (3) data points needed to extract member votes # noqa
                 vote_params.append((v.get('id'), v.get('number'), v.get('name'))) # noqa
+            # This is an asyncio call...
             results = fetch_member_votes.process(vote_params)
-            # legislative_info['member_votes'] = results
+            legislative_info['member_votes'] = results
         # html is stored in second element
         document_html = results_values[1]
         # We need to get the array of html pages into a single html stream
