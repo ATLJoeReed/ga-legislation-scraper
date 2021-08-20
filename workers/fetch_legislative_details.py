@@ -63,7 +63,7 @@ def process(legislative_ids):
                 # Pulling out (3) data points needed to extract member votes # noqa
                 vote_params.append((v.get('id'), v.get('number'), v.get('name'))) # noqa
             # This is an asyncio call...
-            results = fetch_member_votes.process(vote_params)
+            results = fetch_member_votes.process(vote_params, logger)
             legislative_info['member_votes'] = results
         # html is stored in second element
         document_html = results_values[1]

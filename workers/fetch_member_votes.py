@@ -36,8 +36,9 @@ async def main(params, logger):
     return results
 
 
-def process(vote_params):
-    logger = helpers.setup_logger_stdout(os.path.basename(__file__))
+def process(vote_params, logger=None):
+    if not logger:
+        logger = helpers.setup_logger_stdout(os.path.basename(__file__))
     logger.info('<<Starting to fetch member votes>>')
     params = []
     for v in vote_params:
