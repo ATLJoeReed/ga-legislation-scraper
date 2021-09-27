@@ -25,7 +25,7 @@ def extract_current_sessions(results, logger):
 def extract_first_item(results, type, logger):
     results_values = list(results.values())
     if len(results_values) != 1:
-        logger.warning(f'{type} JSON objects needs inspecting')
+        logger.warning(f'{type} JSON objects needs inspecting - {len(results_values)} results') # noqa
     return results_values[0]
 
 
@@ -51,8 +51,9 @@ def get_legistative_members(context, params, type, logger):
     return extract_first_item(results, type, logger)
 
 
-def get_url_intercept_routes(legislative_route, logger):
-    logger.info(f'Getting {legislative_route} url and intercept routes')
+def get_url_intercept_routes(legislative_route, logger=None):
+    if logger:
+        logger.info(f'Getting {legislative_route} url and intercept routes')
     url = constants.GA_LEGISLATION_ROUTES.get(legislative_route).get('url')
     intercept_routes = constants.GA_LEGISLATION_ROUTES.get(legislative_route).get('intercept_routes') # noqa
     return (url, intercept_routes)

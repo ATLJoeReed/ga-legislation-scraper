@@ -18,7 +18,7 @@ GA_LEGISLATION_ROUTES = {
     },
     'senators': {
         'url': 'https://www.legis.ga.gov/members/senate',
-        'intercept_routes': ['/api/members/list/{current_session}?chamber=2'],
+        'intercept_routes': ['/api/members/list/{session}?chamber=2'],
     },
     'legislative_summaries': {
         'url': 'https://www.legis.ga.gov/legislation/all',
