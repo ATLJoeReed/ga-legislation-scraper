@@ -10,11 +10,11 @@ GA_LEGISLATION_ROUTES = {
     },
     'committees': {
         'url': 'https://www.legis.ga.gov/committees/house',
-        'intercept_routes': ['/api/committees/List/{current_session}'],
+        'intercept_routes': ['/api/committees/List/{session}'],
     },
     'representatives': {
         'url': 'https://www.legis.ga.gov/members/house',
-        'intercept_routes': ['/api/members/list/{current_session}?chamber=1'],
+        'intercept_routes': ['/api/members/list/{session}?chamber=1'],
     },
     'senators': {
         'url': 'https://www.legis.ga.gov/members/senate',
@@ -30,11 +30,11 @@ GA_LEGISLATION_ROUTES = {
     },
     'house_votes': {
         'url': 'https://www.legis.ga.gov/votes/house',
-        'intercept_routes': ['/api/Vote/list/1/{current_session}'],
+        'intercept_routes': ['/api/Vote/list/1/{session}'],
     },
     'senate_votes': {
         'url': 'https://www.legis.ga.gov/votes/senate',
-        'intercept_routes': ['/api/Vote/list/2/{current_session}'],
+        'intercept_routes': ['/api/Vote/list/2/{session}'],
     },
     'house_member_votes': {
         'url': 'https://www.legis.ga.gov/votes/house',

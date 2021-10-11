@@ -15,7 +15,7 @@ async def get_representatives(browser, session, logger):
         logger.info(f'URL adjusted to {url}')
     else:
         session = constants.CURRENT_SESSION
-    params = {'current_session': session}
+    params = {'session': session}
     adjusted_routes = helpers.update_list_item(intercept_routes, params, logger) # noqa
     logger.info('Intercepting representatives route')
     context = await browser.new_context()
