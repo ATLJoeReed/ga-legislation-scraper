@@ -5,4 +5,4 @@ from workers import fetch_house_votes
 
 
 results = fetch_house_votes.process()
-helpers.write_json_file('votes_house.json', results)
+helpers.write_json_file('house_votes.json', results)
